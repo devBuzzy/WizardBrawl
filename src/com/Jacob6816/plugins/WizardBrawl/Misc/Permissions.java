@@ -9,31 +9,31 @@ public class Permissions {
         p = player;
     }
     
-    boolean IsAdmin() {
+    private boolean IsAdmin() {
         return p.hasPermission("WizardBrawl.Admin") || p.isOp();
     }
     
-    boolean IsMod() {
+    private boolean IsMod() {
         return p.hasPermission("WizardBrawl.Mod") || IsAdmin();
     }
     
-    boolean CanCreateSigns() {
+    public boolean CanCreateSigns() {
         return p.hasPermission("WizardBrawl.Signs.Create") || IsMod();
     }
     
-    boolean CanDestroySigns() {
+    public boolean CanDestroySigns() {
         return p.hasPermission("WizardBrawl.Signs.Destroy") || IsMod();
     }
     
-    boolean CanUseArena() {
+    public boolean CanUseArena() {
         return p.hasPermission("WizardBrawl.Arena") || IsMod();
     }
     
-    boolean CanCreateMap() {
+    public boolean CanCreateMap() {
         return p.hasPermission("WizardBrawl.Maps.Create") || IsAdmin();
     }
     
-    boolean CanDeleteMap() {
+    public boolean CanDeleteMap() {
         return p.hasPermission("WizardBrawl.Maps.Delete") || IsAdmin();
     }
 }

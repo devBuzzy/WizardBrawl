@@ -33,10 +33,10 @@ public class Arena {
     private Location lobby, blue, red;
     
     protected Arena(String name, Selection region) {
+        state = State.LOADING;
         players = new HashSet<Player>();
         backups = new HashMap<Player, DataBackup>();
         this.name = name;
-        state = State.LOADING;
         config = new ConfigHelper(name, true);
         this.region = region;
         config.setMaxPlayers(24);

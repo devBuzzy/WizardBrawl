@@ -1,10 +1,20 @@
 package com.Jacob6816.plugins.WizardBrawl.Arenas;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import com.Jacob6816.plugins.WizardBrawl.WizardBrawl;
+import com.Jacob6816.plugins.WizardBrawl.Arenas.Arena.State;
+import com.Jacob6816.plugins.WizardBrawl.Misc.ConfigHelper;
+import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
 public class ArenaManager {
@@ -57,5 +67,28 @@ public class ArenaManager {
             arenas.add(a);
             return true;
         }
+    }
+    
+    public boolean removeArena(Arena a) {
+        boolean val = arenas.contains(a);
+        if (val) arenas.remove(a);
+        return val;
+    }
+    
+    public boolean loadArena(String name) {
+        Arena a = getByName(name);
+        if (a != null) return true;
+        File f = new File(WizardBrawl.get().getDataFolder(), "Maps" + File.separator + name + ".yml");
+        if (!f.exists()) return false;
+        FileConfiguration conf = YamlConfiguration.loadConfiguration(f);
+        List<String> data = Arrays.asList("MaxPlayers", "Spawns", "Spawns.Red", "Spawns.Blue", "Spawns.Lobby", "Natives", "Natives.Lowest", "Natives.Highest");
+        for (String s : data) {
+            if (conf.get(s) == null) return false;
+        }
+        Location h = ConfigHelper.locationFromString(conf.getString("Natives.Highest"));
+        Location l = ConfigHelper.locationFromString(conf.getString("Natives.Lowest"));
+        a = new Arena(f.getName().substring(0, f.getName().lastIndexOf(".")), new CuboidSelection(h.getWorld(), h, l));
+        a.setState(State.LOBBY);
+        return true;
     }
 }

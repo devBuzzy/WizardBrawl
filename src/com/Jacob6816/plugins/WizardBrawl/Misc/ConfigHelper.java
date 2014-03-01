@@ -13,9 +13,10 @@ import com.Jacob6816.plugins.WizardBrawl.WizardBrawl;
 
 public class ConfigHelper {
     private FileConfiguration config;
+    private File file;
     
     public ConfigHelper(String map, boolean createIfAbsent) {
-        File file = new File(WizardBrawl.get().getDataFolder(), "Maps" + File.separator + map + ".yml");
+        file = new File(WizardBrawl.get().getDataFolder(), "Maps" + File.separator + map + ".yml");
         if (!file.exists() && createIfAbsent) try {
             file.createNewFile();
         }
@@ -51,6 +52,10 @@ public class ConfigHelper {
         return locationFromString(text);
     }
     
+    public File getFile() {
+        return file;
+    }
+    
     public Location getBlueSpawn() {
         String text = get("Spawns.Blue");
         return locationFromString(text);
@@ -79,7 +84,7 @@ public class ConfigHelper {
         return locationFromString(text);
     }
     
-    public String locationToString(Location location) {
+    public static String locationToString(Location location) {
         String w = location.getWorld().getName();
         double x = Math.ceil(location.getX());
         double y = Math.ceil(location.getY());
@@ -90,7 +95,7 @@ public class ConfigHelper {
         return s.trim();
     }
     
-    public Location locationFromString(String location) {
+    public static Location locationFromString(String location) {
         String[] l = location.split(":");
         World w = Bukkit.getWorld(l[0]);
         double x = Double.parseDouble(l[1]);

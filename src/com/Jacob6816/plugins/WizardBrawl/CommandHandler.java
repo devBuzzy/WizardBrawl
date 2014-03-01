@@ -11,8 +11,10 @@ import org.bukkit.command.CommandSender;
 
 import com.Jacob6816.plugins.WizardBrawl.Commands.CommandBase;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Create;
+import com.Jacob6816.plugins.WizardBrawl.Commands.Delete;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Join;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Leave;
+import com.Jacob6816.plugins.WizardBrawl.Commands.Load;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Location;
 
 public class CommandHandler implements CommandExecutor {
@@ -23,6 +25,8 @@ public class CommandHandler implements CommandExecutor {
         commands.add(new Create());
         commands.add(new Leave());
         commands.add(new Location());
+        commands.add(new Delete());
+        commands.add(new Load());
     }
     
     @Override
@@ -39,7 +43,12 @@ public class CommandHandler implements CommandExecutor {
             return true;
         }
         CommandBase b = getCommand(args[0]);
-        b.onCommand(sender, reduce(args));
+        if (b != null) {
+            b.onCommand(sender, reduce(args));
+        }
+        else {
+            sender.sendMessage(ChatColor.RED + "Command not found.");
+        }
         return true;
     }
     

@@ -44,4 +44,8 @@ public class Permissions {
     public boolean CanViewLocations() {
         return p.hasPermission("WizardBrawl.Maps.Locations.View") || CanSetLocations();
     }
+    
+    public boolean CanLoadArenas() {
+        return p.hasPermission("WizardBrawl.Maps.Load") || IsMod();
+    }
 }

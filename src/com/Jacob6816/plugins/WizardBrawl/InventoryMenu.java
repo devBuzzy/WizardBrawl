@@ -49,7 +49,7 @@ public class InventoryMenu implements Listener {
                 e.setCancelled(true);
                 final Player player = (Player) e.getWhoClicked();
                 final ItemStack clicked = e.getCurrentItem();
-                if (clicked != null && clicked.getType() != Material.AIR) player.performCommand("WizzardBrawl " + ChatColor.stripColor(clicked.getItemMeta().getDisplayName()));
+                if (clicked != null && clicked.getType() != Material.AIR) player.performCommand("WizardBrawl " + ChatColor.stripColor(clicked.getItemMeta().getDisplayName()));
             }
         }
     }

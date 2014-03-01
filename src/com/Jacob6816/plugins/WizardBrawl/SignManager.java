@@ -9,7 +9,7 @@ public class SignManager implements Listener {
     @EventHandler
     public void onSignChange(SignChangeEvent e) {
             if (e.getLine(0).equalsIgnoreCase("[Test]")) {
-                    e.setLine(0, "§3[Cdd]");
+                    e.setLine(0, "§3[kkk]");
             }
     }
 

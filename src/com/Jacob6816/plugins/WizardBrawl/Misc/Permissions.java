@@ -48,4 +48,8 @@ public class Permissions {
     public boolean CanLoadArenas() {
         return p.hasPermission("WizardBrawl.Maps.Load") || IsMod();
     }
+    
+    public boolean CanListArenas() {
+        return p.hasPermission("WizardBrawl.Maps.List") || IsMod();
+    }
 }

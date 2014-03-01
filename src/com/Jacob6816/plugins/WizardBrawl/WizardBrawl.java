@@ -4,8 +4,12 @@ import java.io.File;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.Jacob6816.plugins.WizardBrawl.Arenas.Arena;
+import com.Jacob6816.plugins.WizardBrawl.Arenas.Arena.State;
+import com.Jacob6816.plugins.WizardBrawl.Arenas.ArenaManager;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
 public class WizardBrawl extends JavaPlugin {
@@ -22,6 +26,11 @@ public class WizardBrawl extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new InventoryMenu(), this);
         File f = new File(getDataFolder(), "Maps");
         f.mkdirs();
+        if (f.listFiles().length >= 1) {
+            for (File file : f.listFiles()) {
+                ArenaManager.get().loadArena(file.getName().substring(0, file.getName().lastIndexOf(".")));
+            }
+        }
         super.onEnable();
     }
     
@@ -32,5 +41,16 @@ public class WizardBrawl extends JavaPlugin {
     
     public static final WizardBrawl get() {
         return (WizardBrawl) Bukkit.getPluginManager().getPlugin("WizardBrawl");
+    }
+    
+    @Override
+    public void onDisable() {
+        for (Arena a : ArenaManager.get().getAllArenas()) {
+            a.endGame();
+            a.setState(State.DISABLED);
+            a.getHelper().save();
+        }
+        HandlerList.unregisterAll(this);
+        super.onDisable();
     }
 }

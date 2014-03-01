@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import com.Jacob6816.plugins.WizardBrawl.Arenas.Arena;
 import com.Jacob6816.plugins.WizardBrawl.Arenas.ArenaManager;
+import com.Jacob6816.plugins.WizardBrawl.Misc.Permissions;
 
 public class Join extends CommandBase {
     
@@ -20,6 +21,11 @@ public class Join extends CommandBase {
             return;
         }
         final Player player = (Player) sender;
+        Permissions perms = new Permissions(sender);
+        if(!perms.CanUseArena()) {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to join an arena.");
+            return;
+        }
         if (args.length == 0) {
             sendUsage(player);
             return;

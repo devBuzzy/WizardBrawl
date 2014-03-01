@@ -37,14 +37,17 @@ public class ConfigHelper {
     
     public void setRedSpawn(Location location) {
         config.set("Spawns.Red", locationToString(location));
+        save();
     }
     
     public void setBlueSpawn(Location location) {
         config.set("Spawns.Blue", locationToString(location));
+        save();
     }
     
     public void setLobbySpawn(Location location) {
         config.set("Spawns.Lobby", locationToString(location));
+        save();
     }
     
     public Location getRedSpawn() {
@@ -68,10 +71,12 @@ public class ConfigHelper {
     
     public void setLowestPoint(Location lowest) {
         config.set("Natives.Lowest", locationToString(lowest));
+        save();
     }
     
     public void setHighestPoint(Location highest) {
         config.set("Natives.Highest", locationToString(highest));
+        save();
     }
     
     public Location getLowestPoint() {
@@ -91,12 +96,13 @@ public class ConfigHelper {
         double z = Math.ceil(location.getZ());
         float v = (float) Math.ceil(location.getYaw());
         float p = (float) Math.ceil(location.getPitch());
-        String s = w + ":" + x + ":" + y + ":" + z + ":" + v + ":" + p;
+        String s = w + "%" + x + "%" + y + "%" + z + "%" + v + "%" + p;
         return s.trim();
     }
     
     public static Location locationFromString(String location) {
-        String[] l = location.split(":");
+        if (!location.contains("%")) return null;
+        String[] l = location.split("%");
         World w = Bukkit.getWorld(l[0]);
         double x = Double.parseDouble(l[1]);
         double y = Double.parseDouble(l[2]);
@@ -105,6 +111,18 @@ public class ConfigHelper {
         float p = Float.parseFloat(l[5]);
         Location target = new Location(w, x, y, z, v, p);
         return target;
+    }
+    
+    public boolean save() {
+        try {
+            config.save(file);
+            return true;
+        }
+        catch (IOException e) {
+            System.out.println("FAILED TO SAVE FILE!");
+            e.printStackTrace();
+            return false;
+        }
     }
     
     /**

@@ -77,18 +77,30 @@ public class ArenaManager {
     
     public boolean loadArena(String name) {
         Arena a = getByName(name);
-        if (a != null) return true;
+        if (a != null) {
+            injectData(a);
+            return true;
+        }
         File f = new File(WizardBrawl.get().getDataFolder(), "Maps" + File.separator + name + ".yml");
         if (!f.exists()) return false;
         FileConfiguration conf = YamlConfiguration.loadConfiguration(f);
         List<String> data = Arrays.asList("MaxPlayers", "Spawns", "Spawns.Red", "Spawns.Blue", "Spawns.Lobby", "Natives", "Natives.Lowest", "Natives.Highest");
         for (String s : data) {
-            if (conf.get(s) == null) return false;
+            if (conf.get(s) == null) { return false; }
         }
         Location h = ConfigHelper.locationFromString(conf.getString("Natives.Highest"));
         Location l = ConfigHelper.locationFromString(conf.getString("Natives.Lowest"));
         a = new Arena(f.getName().substring(0, f.getName().lastIndexOf(".")), new CuboidSelection(h.getWorld(), h, l));
+        injectData(a);
         a.setState(State.LOBBY);
+        arenas.add(a);
         return true;
+    }
+    
+    public void injectData(Arena a) {
+        a.setBlueSpawn(ConfigHelper.locationFromString((String) a.getHelper().get("Spawns.Blue")));
+        a.setRedSpawn(ConfigHelper.locationFromString((String) a.getHelper().get("Spawns.Red")));
+        a.setLobby(ConfigHelper.locationFromString((String) a.getHelper().get("Spawns.Lobby")));
+        a.setMaxPlayers((int) (a.getHelper().get("MaxPlayers") != null ? a.getHelper().get("MaxPlayers") : 24));
     }
 }

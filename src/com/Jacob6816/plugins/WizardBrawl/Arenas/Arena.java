@@ -42,6 +42,7 @@ public class Arena {
         config.setMaxPlayers(24);
         config.setHighestPoint(region.getMaximumPoint());
         config.setLowestPoint(region.getMinimumPoint());
+        config.save();
     }
     
     public ConfigHelper getHelper() {
@@ -58,6 +59,8 @@ public class Arena {
     
     public void setLobby(Location location) {
         lobby = location;
+        config.setLobbySpawn(location);
+        config.save();
     }
     
     public Location getRedSpawn() {
@@ -66,6 +69,8 @@ public class Arena {
     
     public void setRedSpawn(Location location) {
         red = location;
+        config.setRedSpawn(location);
+        config.save();
     }
     
     public Location getBlueSpawn() {
@@ -74,6 +79,8 @@ public class Arena {
     
     public void setBlueSpawn(Location location) {
         blue = location;
+        config.setBlueSpawn(location);
+        config.save();
     }
     
     public Player[] getPlayers() {
@@ -86,8 +93,8 @@ public class Arena {
     
     public void addPlayer(Player player) {
         players.add(player);
-        player.getPlayer().teleport(getLobby());
         backups.put(player, new DataBackup(player));
+        player.getPlayer().teleport(getLobby());
     }
     
     public void removePlayer(Player player) {
@@ -184,6 +191,8 @@ public class Arena {
     
     public void setMaxPlayers(int max) {
         this.maxplayers = max;
+        config.setMaxPlayers(max);
+        config.save();
     }
     
     public boolean isInsideArena(Player player) {
@@ -230,7 +239,7 @@ public class Arena {
         return region;
     }
     
-    public Integer[] setTicks() {
+    public Integer[] getTicks() {
         return ticks.toArray(new Integer[ticks.size()]);
     }
     

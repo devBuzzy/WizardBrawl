@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import com.Jacob6816.plugins.WizardBrawl.Arenas.Arena;
 import com.Jacob6816.plugins.WizardBrawl.Arenas.ArenaManager;
+import com.Jacob6816.plugins.WizardBrawl.Misc.ConfigHelper;
 import com.Jacob6816.plugins.WizardBrawl.Misc.Permissions;
 
 public class Location extends CommandBase {
@@ -49,7 +50,7 @@ public class Location extends CommandBase {
             else if (args[0].equalsIgnoreCase("red")) {
                 Arena a = ArenaManager.get().getByName(args[1]);
                 if (a != null) {
-                    a.getHelper().setLobbySpawn(player.getLocation());
+                    a.getHelper().setRedSpawn(player.getLocation());
                     player.sendMessage(ChatColor.YELLOW + "Location set at your current position.");
                     return;
                 }
@@ -57,7 +58,7 @@ public class Location extends CommandBase {
             else if (args[0].equalsIgnoreCase("blue")) {
                 Arena a = ArenaManager.get().getByName(args[1]);
                 if (a != null) {
-                    a.getHelper().setLobbySpawn(player.getLocation());
+                    a.getHelper().setBlueSpawn(player.getLocation());
                     player.sendMessage(ChatColor.YELLOW + "Location set at your current position.");
                     return;
                 }
@@ -78,7 +79,8 @@ public class Location extends CommandBase {
                     sender.sendMessage(ChatColor.RED + "That arena does not exist.");
                 }
                 else {
-                    sender.sendMessage(ChatColor.YELLOW + "Location: " + a.getHelper().locationToString(a.getHelper().getLobbySpawn()));
+                    a.getHelper();
+                    sender.sendMessage(ChatColor.YELLOW + "Location: " + ConfigHelper.locationToString(a.getHelper().getLobbySpawn()));
                     return;
                 }
             }
@@ -88,7 +90,8 @@ public class Location extends CommandBase {
                     sender.sendMessage(ChatColor.RED + "That arena does not exist.");
                 }
                 else {
-                    sender.sendMessage(ChatColor.YELLOW + "Location: " + a.getHelper().locationToString(a.getHelper().getRedSpawn()));
+                    a.getHelper();
+                    sender.sendMessage(ChatColor.YELLOW + "Location: " + ConfigHelper.locationToString(a.getHelper().getRedSpawn()));
                     return;
                 }
             }
@@ -98,7 +101,8 @@ public class Location extends CommandBase {
                     sender.sendMessage(ChatColor.RED + "That arena does not exist.");
                 }
                 else {
-                    sender.sendMessage(ChatColor.YELLOW + "Location: " + a.getHelper().locationToString(a.getHelper().getBlueSpawn()));
+                    a.getHelper();
+                    sender.sendMessage(ChatColor.YELLOW + "Location: " + ConfigHelper.locationToString(a.getHelper().getBlueSpawn()));
                     return;
                 }
             }

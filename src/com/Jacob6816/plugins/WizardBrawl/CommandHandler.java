@@ -14,6 +14,7 @@ import com.Jacob6816.plugins.WizardBrawl.Commands.Create;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Delete;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Join;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Leave;
+import com.Jacob6816.plugins.WizardBrawl.Commands.List;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Load;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Location;
 
@@ -27,6 +28,7 @@ public class CommandHandler implements CommandExecutor {
         commands.add(new Location());
         commands.add(new Delete());
         commands.add(new Load());
+        commands.add(new List());
     }
     
     @Override

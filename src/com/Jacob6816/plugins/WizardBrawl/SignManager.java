@@ -43,8 +43,10 @@ public class SignManager implements Listener {
         if (lines[0].equalsIgnoreCase("§5[WizardBrawl]")) {
             Permissions perms = new Permissions(e.getPlayer());
             Arena a = ArenaManager.get().getByName(lines[1]);
-            if (a != null && perms.CanUseArena()) {
-                a.addPlayer(e.getPlayer());
+            if (a != null) {
+                if (perms.CanUseArena()) {
+                    a.addPlayer(e.getPlayer());
+                }
             }
         }
         

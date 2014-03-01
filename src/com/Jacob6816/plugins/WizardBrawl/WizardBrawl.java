@@ -7,6 +7,7 @@ public class WizardBrawl extends JavaPlugin {
     @Override
     public void onEnable() {
     	Bukkit.getServer().getPluginManager().registerEvents(new SignManager(), this);
+    	Bukkit.getServer().getPluginManager().registerEvents(new InventoryMenu(), this);
         super.onEnable();
     }
 }

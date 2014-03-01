@@ -8,8 +8,9 @@ public class SignManager implements Listener {
 	
     @EventHandler
     public void onSignChange(SignChangeEvent e) {
-            if (e.getLine(0).equalsIgnoreCase("[Test]")) {
-                    e.setLine(0, "§3[lkk]");
+            if (e.getLine(0).equalsIgnoreCase("[wb]")) {
+                    e.setLine(0, "§5[WizardBrawl]");
+                    e.setLine(2, arena.getPlayers + "/24");
             }
     }
 

@@ -24,7 +24,7 @@ public class Arena {
     
     private Selection region;
     private List<Integer> ticks = Arrays.asList(1, 2, 3, 4, 5, 10, 15, 30, 45);
-    private int timeRemaining = 0;
+    private int timeRemaining = 0, maxplayers = 24;
     private State state;
     private HashSet<Player> players, redTeam, blueTeam;
     private HashMap<Player, DataBackup> backups;
@@ -42,6 +42,10 @@ public class Arena {
         config.setMaxPlayers(24);
         config.setHighestPoint(region.getMaximumPoint());
         config.setLowestPoint(region.getMinimumPoint());
+    }
+    
+    public ConfigHelper getHelper() {
+        return config;
     }
     
     public String getName() {
@@ -172,6 +176,14 @@ public class Arena {
                 return;
             }
         }
+    }
+    
+    public int getMaxPlayers() {
+        return maxplayers;
+    }
+    
+    public void setMaxPlayers(int max) {
+        this.maxplayers = max;
     }
     
     public boolean isInsideArena(Player player) {

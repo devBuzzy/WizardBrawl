@@ -14,7 +14,8 @@ public class WizardBrawl extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
-        
+        getCommand("WizardBrawl").setExecutor(new CommandHandler());
+        getCommand("WB").setExecutor(new CommandHandler());
         Bukkit.getServer().getPluginManager().registerEvents(new SignManager(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new InventoryMenu(), this);
         super.onEnable();

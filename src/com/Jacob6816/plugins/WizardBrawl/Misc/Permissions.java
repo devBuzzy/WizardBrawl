@@ -1,12 +1,12 @@
 package com.Jacob6816.plugins.WizardBrawl.Misc;
 
-import org.bukkit.entity.Player;
+import org.bukkit.command.CommandSender;
 
 public class Permissions {
-    Player p;
+    CommandSender p;
     
-    public Permissions(Player player) {
-        p = player;
+    public Permissions(CommandSender sender) {
+        p = sender;
     }
     
     private boolean IsAdmin() {
@@ -35,5 +35,13 @@ public class Permissions {
     
     public boolean CanDeleteMap() {
         return p.hasPermission("WizardBrawl.Maps.Delete") || IsAdmin();
+    }
+    
+    public boolean CanSetLocations() {
+        return p.hasPermission("WizardBrawl.Maps.Locations.Set") || IsAdmin();
+    }
+    
+    public boolean CanViewLocations() {
+        return p.hasPermission("WizardBrawl.Maps.Locations.View") || CanSetLocations();
     }
 }

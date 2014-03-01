@@ -1,0 +1,10 @@
+name: WizardBrawl
+author: [Jacob6816, mike1665]
+main: com.Jacob.plugins.WizardBrawl.WizardBrawl
+version: 1.0
+
+commands:
+   wizardbrawl:
+      description: Main command.
+   wb:
+      description: Main command2.

@@ -1,8 +1,8 @@
 name: WizardBrawl
-author: [Jacob6816, mike1665]
-main: com.Jacob.plugins.WizardBrawl.WizardBrawl
+authors: [Jacob6816, mike1665]
+main: com.Jacob6816.plugins.WizardBrawl.WizardBrawl
 version: 1.0
-
+depend: [WorldEdit]
 commands:
    wizardbrawl:
       description: Main command.

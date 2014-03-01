@@ -5,8 +5,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.Jacob6816.plugins.WizardBrawl.WizardBrawl;
-
 public class IceWand extends WandBase {
     
     public IceWand() {

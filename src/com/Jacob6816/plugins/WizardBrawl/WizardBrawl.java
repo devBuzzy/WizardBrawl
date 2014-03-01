@@ -24,4 +24,8 @@ public class WizardBrawl extends JavaPlugin {
         WorldEditPlugin wep = (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit");
         return wep;
     }
+    
+    public static final WizardBrawl get() {
+        return (WizardBrawl) Bukkit.getPluginManager().getPlugin("WizardBrawl");
+    }
 }

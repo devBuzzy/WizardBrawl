@@ -9,12 +9,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import com.Jacob6816.plugins.WizardBrawl.Commands.CommandBase;
+import com.Jacob6816.plugins.WizardBrawl.Commands.Join;
 
 public class CommandHandler implements CommandExecutor {
     HashSet<CommandBase> commands = new HashSet<CommandBase>();
     
     public CommandHandler() {
-        // Register commands
+        commands.add(new Join());
     }
     
     @Override

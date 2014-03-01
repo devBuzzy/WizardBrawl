@@ -1,5 +1,6 @@
 package com.Jacob6816.plugins.WizardBrawl.Commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 public abstract class CommandBase {
@@ -29,4 +30,8 @@ public abstract class CommandBase {
     }
     
     public abstract void onCommand(CommandSender sender, String[] args);
+    
+    public void sendUsage(CommandSender sender) {
+        sender.sendMessage(ChatColor.YELLOW + "Usage: /WizardBrawl " + getClass().getSimpleName() + " " + getUsage());
+    }
 }

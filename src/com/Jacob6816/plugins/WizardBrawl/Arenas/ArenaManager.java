@@ -2,8 +2,8 @@ package com.Jacob6816.plugins.WizardBrawl.Arenas;
 
 import java.util.ArrayList;
 
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 public class ArenaManager {
     private static ArrayList<Arena> arenas = new ArrayList<Arena>();
@@ -19,13 +19,11 @@ public class ArenaManager {
         return instance;
     }
     
-    public Arena getPlayerArena(String player) {
-        OfflinePlayer target = Bukkit.getPlayer(player);
-        if (target == null) return null;
+    public Arena getPlayerArena(Player player) {
         if (arenas.isEmpty()) return null;
         for (Arena a : arenas) {
             for (OfflinePlayer p : a.getPlayers()) {
-                if (p.getName().equals(target.getName())) return a;
+                if (p.getName().equals(player.getName())) return a;
             }
         }
         return null;
@@ -39,8 +37,8 @@ public class ArenaManager {
         return null;
     }
     
-    public boolean isInGame(OfflinePlayer player) {
-        return getPlayerArena(player.getName()) != null;
+    public boolean isInGame(Player player) {
+        return getPlayerArena(player) != null;
     }
     
     public Arena[] getAllArenas() {

@@ -13,7 +13,7 @@ public class ArenaManager {
     private static ArenaManager instance;
     
     private ArenaManager() {
-        if (instance == null) instance = new ArenaManager();
+        if (instance == null) instance = this;
     }
     
     public static ArenaManager get() {

@@ -27,7 +27,7 @@ public class InventoryMenu implements Listener {
 			ItemStack i = new ItemStack(Material.DIAMOND_BLOCK);
 			ItemMeta im = i.getItemMeta();
 			im.setDisplayName(ChatColor.LIGHT_PURPLE + a.getName());
-			im.setLore(Arrays.asList(ChatColor.DARK_RED	+ "Click to join an arena!"));
+			im.setLore(Arrays.asList(ChatColor.DARK_RED	+ "Click to join an arena!", a.getIndepthDescription()));
 			i.setItemMeta(im);
 			l.add(i);
 		}
@@ -40,11 +40,15 @@ public class InventoryMenu implements Listener {
 
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
+		if(e.getWhoClicked() instanceof Player){
 		Player player = (Player) e.getWhoClicked();
-		if(e.getWhoClicked() instance of player)
 		ItemStack clicked = e.getCurrentItem();
 		Inventory inventory = e.getInventory(); 
 		if (inventory.getName().equals(myInventory.getName())) {
+			e.setCancelled(true);
+			e.getCurrentItem();
+			
 		}
 	}
+}
 }

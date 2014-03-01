@@ -1,8 +1,10 @@
 package com.Jacob6816.plugins.WizardBrawl.Arenas;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -80,6 +82,18 @@ public class Arena {
             players.remove(player);
         }
     }
+    
+    public String[] getIndepthDescription() {
+        ArrayList<String> l = new ArrayList<String>();
+        l.add(ChatColor.YELLOW + "Ingame: " + getPlayerCount() + " / 24");
+        l.add(ChatColor.YELLOW + "Map name: " + getName());
+        l.add(ChatColor.YELLOW + "Lobby world: " + getLobby().getWorld().getName());
+        return l.toArray(new String[l.size()]);
+    }
+    
+    /**
+     * @author JRL1004
+     */
     
     private class DataBackup {
         private ItemStack[] inventory, armor;

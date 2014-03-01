@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,7 +28,14 @@ public class CommandHandler implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
-            // Send list of commands
+            StringBuilder sb = new StringBuilder();
+            for (CommandBase b : commands) {
+                sb.append(b.getClass().getSimpleName() + ", ");
+            }
+            sender.sendMessage(ChatColor.YELLOW + "== WizardBrawl Commands ==");
+            for (CommandBase b : commands) {
+                sender.sendMessage(ChatColor.GRAY + b.getClass().getSimpleName() + " - " + b.getDescription());
+            }
             return true;
         }
         CommandBase b = getCommand(args[0]);

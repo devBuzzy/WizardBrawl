@@ -1,5 +1,7 @@
 package com.Jacob6816.plugins.WizardBrawl;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +20,8 @@ public class WizardBrawl extends JavaPlugin {
         getCommand("WB").setExecutor(new CommandHandler());
         Bukkit.getServer().getPluginManager().registerEvents(new SignManager(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new InventoryMenu(), this);
+        File f = new File(getDataFolder(), "Maps");
+        f.mkdirs();
         super.onEnable();
     }
     

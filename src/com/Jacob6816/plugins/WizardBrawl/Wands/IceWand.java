@@ -9,7 +9,6 @@ public class IceWand extends WandBase {
     
     public IceWand() {
         super(ChatColor.translateAlternateColorCodes('&', "&3Ice WAnd&r"), 5, new ItemStack(Material.DIAMOND_HOE), ChatColor.AQUA + "Freeze your enemies in place.");
-        WandBase.addWand(this);
     }
     
     @Override

@@ -24,6 +24,9 @@ public abstract class WandBase {
             this.lore = new String[] {};
         }
         this.root = root.clone();
+        wands.add(new FireWand());
+        wands.add(new IceWand());
+        wands.add(new ExampleWand());
     }
     
     public String getName() {
@@ -77,6 +80,10 @@ public abstract class WandBase {
     }
     
     public static void addWand(WandBase base) {
-        if (!wands.contains(base)) wands.add(base);
+        wands.add(base);
+    }
+    
+    public static WandBase[] getAllWands() {
+        return wands.toArray(new WandBase[wands.size()]);
     }
 }

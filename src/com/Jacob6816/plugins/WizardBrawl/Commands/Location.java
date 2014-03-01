@@ -29,6 +29,10 @@ public class Location extends CommandBase {
             return;
         }
         if (args[0].equalsIgnoreCase("set")) {
+            if (args.length < 3) {
+                sendUsage(sender);
+                return;
+            }
             if (!perms.CanSetLocations()) {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to set locations.");
                 return;

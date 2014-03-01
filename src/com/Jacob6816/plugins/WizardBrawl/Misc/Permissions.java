@@ -52,4 +52,12 @@ public class Permissions {
     public boolean CanListArenas() {
         return p.hasPermission("WizardBrawl.Maps.List") || IsMod();
     }
+    
+    public boolean CanChooseWand() {
+        return p.hasPermission("WizardBrawl.Wands.Selection") || IsMod();
+    }
+    
+    public boolean CanUseWand(String wand) {
+        return p.hasPermission("WizardBrawl.Wands.Select." + wand) || IsMod();
+    }
 }

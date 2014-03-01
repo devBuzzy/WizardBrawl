@@ -17,6 +17,7 @@ import com.Jacob6816.plugins.WizardBrawl.Commands.Leave;
 import com.Jacob6816.plugins.WizardBrawl.Commands.List;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Load;
 import com.Jacob6816.plugins.WizardBrawl.Commands.Location;
+import com.Jacob6816.plugins.WizardBrawl.Commands.Wand;
 
 public class CommandHandler implements CommandExecutor {
     HashSet<CommandBase> commands = new HashSet<CommandBase>();
@@ -29,6 +30,7 @@ public class CommandHandler implements CommandExecutor {
         commands.add(new Delete());
         commands.add(new Load());
         commands.add(new List());
+        commands.add(new Wand());
     }
     
     @Override

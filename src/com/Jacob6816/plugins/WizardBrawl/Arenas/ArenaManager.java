@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import com.sk89q.worldedit.bukkit.selections.Selection;
+
 public class ArenaManager {
     private static ArrayList<Arena> arenas = new ArrayList<Arena>();
     
@@ -43,5 +45,17 @@ public class ArenaManager {
     
     public Arena[] getAllArenas() {
         return arenas.toArray(new Arena[arenas.size()]);
+    }
+    
+    public boolean createNewArena(String string, Selection selection) {
+        Arena a = getByName(string);
+        if (a != null) {
+            return false;
+        }
+        else {
+            a = new Arena(string, selection);
+            arenas.add(a);
+            return true;
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.Jacob6816.plugins.WizardBrawl.Arenas;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,9 +11,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.util.Vector;
 
 import com.Jacob6816.plugins.WizardBrawl.Misc.ConfigHelper;
-import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
 public class Arena {
@@ -30,16 +32,16 @@ public class Arena {
     private ConfigHelper config;
     private Location lobby, blue, red;
     
-    protected Arena(String name, Location lobby, Location redTeam, Location blueTeam) {
+    protected Arena(String name, Selection region) {
         players = new HashSet<Player>();
         backups = new HashMap<Player, DataBackup>();
         this.name = name;
-        this.lobby = lobby;
-        blue = blueTeam;
-        red = redTeam;
         state = State.LOADING;
         config = new ConfigHelper(name, true);
-        region = new CuboidSelection(config.getHighestPoint().getWorld(), config.getHighestPoint(), config.getLowestPoint());
+        this.region = region;
+        config.setMaxPlayers(24);
+        config.setHighestPoint(region.getMaximumPoint());
+        config.setLowestPoint(region.getMinimumPoint());
     }
     
     public String getName() {
@@ -154,7 +156,7 @@ public class Arena {
                 return;
             }
         }
-        else if (state == state.INGAME) {
+        else if (state == State.INGAME) {
             timeRemaining--;
             for (Player p : getPlayers()) {
                 p.setLevel(timeRemaining);
@@ -225,19 +227,58 @@ public class Arena {
      */
     
     private class DataBackup {
+        private Player player;
         private ItemStack[] inventory, armor;
-        private float exp;
+        private int totalExp, foodLevel;
+        private Collection<PotionEffect> activeEffects;
+        private Location bedSpawn, lastLocation, compass;
+        private Vector velocity;
+        private String customName, displayName;
+        private float fallDistance;
         
         private DataBackup(Player player) {
+            this.player = player;
             createBackup();
         }
         
         public void restorePlayer() {
-            
+            player.teleport(lastLocation);
+            player.setCompassTarget(compass);
+            player.setBedSpawnLocation(bedSpawn);
+            player.getInventory().setContents(inventory);
+            player.getInventory().setArmorContents(armor);
+            player.addPotionEffects(activeEffects);
+            player.setTotalExperience(totalExp);
+            player.setFoodLevel(foodLevel);
+            player.setVelocity(velocity);
+            player.setCustomName(customName);
+            player.setDisplayName(displayName);
+            player.setFallDistance(fallDistance);
         }
         
         public void createBackup() {
-            
+            inventory = player.getInventory().getContents();
+            player.getInventory().setContents(new ItemStack[] {});
+            armor = player.getInventory().getArmorContents();
+            player.getInventory().setArmorContents(new ItemStack[] {});
+            activeEffects = player.getActivePotionEffects();
+            bedSpawn = player.getBedSpawnLocation();
+            lastLocation = player.getLocation();
+            velocity = player.getVelocity();
+            compass = player.getCompassTarget();
+            customName = player.getCustomName();
+            displayName = player.getDisplayName();
+            fallDistance = player.getFallDistance();
+            foodLevel = player.getFoodLevel();
+            totalExp = player.getTotalExperience();
+            clearEffects();
+        }
+        
+        private void clearEffects() {
+            if (player.getActivePotionEffects().isEmpty()) return;
+            for (PotionEffect p : player.getActivePotionEffects()) {
+                player.removePotionEffect(p.getType());
+            }
         }
     }
 }

@@ -4,7 +4,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.ItemStack;
+
+import com.Jacob6816.plugins.WizardBrawl.Wands.WandBase;
 
 public class ArenaEvents implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)
@@ -22,6 +26,20 @@ public class ArenaEvents implements Listener {
         if (!a.locationIsInsideArena(event.getTo())) {
             event.setCancelled(true);
             event.getPlayer().teleport(a.getTeamSpawn(event.getPlayer()));
+        }
+    }
+    
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
+    public void onClick(PlayerInteractEvent event) {
+        if (!event.getAction().toString().contains("LEFT")) return;
+        final Player player = event.getPlayer();
+        if (player.getItemInHand() != null) {
+            ItemStack i = player.getItemInHand();
+            if (!WandBase.isWand(i)) return;
+            WandBase b = WandBase.getByName(i.getItemMeta().getDisplayName());
+            if (b != null) {
+                b.spell(player);
+            }
         }
     }
 }

@@ -1,19 +1,20 @@
 package com.Jacob6816.plugins.WizardBrawl.Wands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public abstract class WandBase {
-    private ArrayList<WandBase> wands = new ArrayList<WandBase>();
+    private static ArrayList<WandBase> wands = new ArrayList<WandBase>();
     private int mana;
     private String name;
     private String[] lore;
+    private ItemStack root;
     
-    public WandBase(String name, int mana, String... lore) {
+    public WandBase(String name, int mana, ItemStack root, String... lore) {
         this.mana = mana;
         this.name = name;
         if (lore != null) {
@@ -22,6 +23,7 @@ public abstract class WandBase {
         else {
             this.lore = new String[] {};
         }
+        this.root = root.clone();
     }
     
     public String getName() {
@@ -38,7 +40,7 @@ public abstract class WandBase {
     
     public abstract void spell(Player caster);
     
-    public WandBase getByName(String name) {
+    public static WandBase getByName(String name) {
         if (wands.isEmpty()) return null;
         for (WandBase base : wands) {
             if (name.equals(base.getName())) return base;
@@ -59,9 +61,18 @@ public abstract class WandBase {
         return null;
     }
     
-    public boolean isWand(ItemStack itemstack) {
+    public static boolean isWand(ItemStack itemstack) {
         if (!itemstack.hasItemMeta()) return false;
         if (!itemstack.getItemMeta().hasDisplayName()) return false;
         return getByName(itemstack.getItemMeta().getDisplayName()) != null;
+    }
+    
+    public ItemStack getWand() {
+        ItemStack wand = root.clone();
+        ItemMeta meta = wand.getItemMeta();
+        meta.setDisplayName(getName());
+        meta.setLore(Arrays.asList(getLore()));
+        wand.setItemMeta(meta);
+        return wand;
     }
 }

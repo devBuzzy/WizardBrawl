@@ -8,6 +8,7 @@ public class ExampleWand extends WandBase {
     
     public ExampleWand() {
         super("Name", 20, new ItemStack(Material.STICK), "Lore");
+        // WandBase.addWand(this);
     }
     
     @Override

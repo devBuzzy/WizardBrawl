@@ -44,6 +44,10 @@ public class Arena {
         config.setLowestPoint(region.getMinimumPoint());
     }
     
+    public ConfigHelper getHelper() {
+        return config;
+    }
+    
     public String getName() {
         return name;
     }

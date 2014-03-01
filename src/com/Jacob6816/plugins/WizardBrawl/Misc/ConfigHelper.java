@@ -79,7 +79,7 @@ public class ConfigHelper {
         return locationFromString(text);
     }
     
-    private String locationToString(Location location) {
+    public String locationToString(Location location) {
         String w = location.getWorld().getName();
         double x = Math.ceil(location.getX());
         double y = Math.ceil(location.getY());
@@ -90,7 +90,7 @@ public class ConfigHelper {
         return s.trim();
     }
     
-    private Location locationFromString(String location) {
+    public Location locationFromString(String location) {
         String[] l = location.split(":");
         World w = Bukkit.getWorld(l[0]);
         double x = Double.parseDouble(l[1]);

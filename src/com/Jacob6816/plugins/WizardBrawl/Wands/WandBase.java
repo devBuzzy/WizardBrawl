@@ -75,4 +75,8 @@ public abstract class WandBase {
         wand.setItemMeta(meta);
         return wand;
     }
+    
+    public static void addWand(WandBase base) {
+        if (!wands.contains(base)) wands.add(base);
+    }
 }
